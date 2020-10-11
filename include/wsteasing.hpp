@@ -39,9 +39,8 @@
 #ifndef HEADER_WINDSTILLE_MATH_EASING_HPP
 #define HEADER_WINDSTILLE_MATH_EASING_HPP
 
-#include <math.h>
-
-#include "math/math.hpp"
+#include <numbers>
+#include <cmath>
 
 /*
  * t: progress, 0-1
@@ -50,7 +49,6 @@
  * d: duration
  */
 
-namespace math {
 namespace easing {
 
 namespace back {
@@ -221,12 +219,12 @@ inline float ease_in(float t, float b, float c, float d, float a, float p)
       }
       else
       {
-        s = p/(2*math::pi) * asinf (c/a);
+        s = p/(2*std::numbers::pi_v<float>) * astd::sin (c/a);
       }
 
       t-=1;
 
-      return -(a*powf(2,10*t) * sinf( (t*d-s)*(2*math::pi)/p)) + b;
+      return -(a*powf(2,10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p)) + b;
     }
   }
 }
@@ -257,10 +255,10 @@ inline float ease_out(float t, float b, float c, float d, float a, float p)
       }
       else
       {
-        s = p/(2*math::pi) * asinf (c/a);
+        s = p/(2*std::numbers::pi_v<float>) * astd::sin (c/a);
       }
 
-      return (a*powf(2,-10*t) * sinf( (t*d-s)*(2*math::pi)/p ) + c + b);
+      return (a*powf(2,-10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p ) + c + b);
     }
   }
 }
@@ -288,19 +286,19 @@ inline float ease_in_out(float t, float b, float c, float d, float a, float p)
     }
     else
     {
-      s = p/(2*math::pi) * asinf(c/a);
+      s = p/(2*std::numbers::pi_v<float>) * astd::sin(c/a);
     }
 
     t-=1;
 
     if (t < 1)
     {
-      return -.5f*(a*powf(2,10*t) * sinf( (t*d-s)*(2*math::pi)/p )) + b;
+      return -.5f*(a*powf(2,10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p )) + b;
     }
     else
     {
       t-=1;
-      return a*powf(2,-10*t) * sinf( (t*d-s)*(2*math::pi)/p )*.5f + c + b;
+      return a*powf(2,-10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p )*.5f + c + b;
     }
   }
 }
@@ -478,23 +476,22 @@ namespace sine {
 
 inline float ease_in(float t, float b, float c, float d)
 {
-  return -c * cosf(t/d * (math::pi/2)) + c + b;
+  return -c * std::cosf(t/d * (std::numbers::pi_v<float>/2)) + c + b;
 }
 
 inline float ease_out(float t, float b, float c, float d)
 {
-  return c * sinf(t/d * (math::pi/2)) + b;
+  return c * std::sin(t/d * (std::numbers::pi_v<float>/2)) + b;
 }
 
 inline float ease_in_out(float t, float b, float c, float d)
 {
-  return -c/2 * (cosf(math::pi*t/d) - 1) + b;
+  return -c/2 * (std::cosf(std::numbers::pi_v<float>*t/d) - 1) + b;
 }
 
 } // namespace sine
 
 } // namespace easing
-} // namespace math
 
 #endif
 
