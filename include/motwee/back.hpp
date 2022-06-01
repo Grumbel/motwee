@@ -53,9 +53,9 @@ inline float ease_out(float progress, float s = 1.70158f)
   return transform_to_out(ease_in, progress, s);
 }
 
-inline float ease_in_out(float progress, float s = 1.70158f)
+inline float ease_inout(float progress, float s = 1.70158f)
 {
-  return transform_to_in_out(ease_in, progress, s);
+  return transform_to_inout(ease_in, progress, s);
 }
 
 } // namespace back

@@ -51,7 +51,7 @@ inline float ease_out(float progress)
   return ease_in(progress);
 }
 
-inline float ease_in_out(float progress)
+inline float ease_inout(float progress)
 {
   return ease_in(progress);
 }

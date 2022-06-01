@@ -83,9 +83,9 @@ inline float ease_out(float progress, float a, float p)
   return transform_to_out(ease_in, progress, a, p);
 }
 
-inline float ease_in_out(float progress, float a, float p)
+inline float ease_inout(float progress, float a, float p)
 {
-  return transform_to_in_out(ease_in, progress, a, p);
+  return transform_to_inout(ease_in, progress, a, p);
 }
 
 } // namespace elastic

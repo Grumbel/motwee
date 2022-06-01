@@ -51,9 +51,9 @@ inline float ease_out(float progress)
   return transform_to_out(ease_in, progress);
 }
 
-inline float ease_in_out(float progress)
+inline float ease_inout(float progress)
 {
-  return transform_to_in_out(ease_in, progress);
+  return transform_to_inout(ease_in, progress);
 }
 
 } // namespace quint

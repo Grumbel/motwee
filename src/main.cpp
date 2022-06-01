@@ -12,12 +12,6 @@ std::array<char const*, 3> Direction_names = {
   "in", "out", "inout"
 };
 
-/*
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
-
 Direction Direction_from_string(std::string_view text)
 {
   for (size_t i = 0; i < Direction_names.size(); ++i) {
@@ -68,7 +62,7 @@ int main(int argc, char** argv)
         break;
 
       case Direction::INOUT:
-        value = motwee::ease_in_out(mode, progress);
+        value = motwee::ease_inout(mode, progress);
         break;
     }
 

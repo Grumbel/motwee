@@ -44,7 +44,7 @@ inline float transform_to_out(F f, float progress, Args... args) {
 }
 
 template<typename F, typename... Args>
-inline float transform_to_in_out(F f, float progress, Args... args) {
+inline float transform_to_inout(F f, float progress, Args... args) {
   if (progress < 0.5f) {
     return f(progress * 2.0f, args...) / 2.0f;
   } else {

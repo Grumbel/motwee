@@ -90,21 +90,21 @@ inline float ease_out(Mode type, float progress, float x = 0.0f, float y = 0.0f)
   }
 }
 
-inline float ease_in_out(Mode type, float progress, float x = 0.0f, float y = 0.0f)
+inline float ease_inout(Mode type, float progress, float x = 0.0f, float y = 0.0f)
 {
   switch (type)
   {
-    case Mode::BACK: return back::ease_in_out(progress);
-    case Mode::BOUNCE: return bounce::ease_in_out(progress);
-    case Mode::CIRC: return circ::ease_in_out(progress);
-    case Mode::CUBIC: return cubic::ease_in_out(progress);
-    case Mode::ELASTIC: return elastic::ease_in_out(progress, x, y);
-    case Mode::EXPO: return expo::ease_in_out(progress);
-    case Mode::LINEAR: return linear::ease_in_out(progress);
-    case Mode::QUAD: return quad::ease_in_out(progress);
-    case Mode::QUART: return quart::ease_in_out(progress);
-    case Mode::QUINT: return quint::ease_in_out(progress);
-    case Mode::SINE: return sine::ease_in_out(progress);
+    case Mode::BACK: return back::ease_inout(progress);
+    case Mode::BOUNCE: return bounce::ease_inout(progress);
+    case Mode::CIRC: return circ::ease_inout(progress);
+    case Mode::CUBIC: return cubic::ease_inout(progress);
+    case Mode::ELASTIC: return elastic::ease_inout(progress, x, y);
+    case Mode::EXPO: return expo::ease_inout(progress);
+    case Mode::LINEAR: return linear::ease_inout(progress);
+    case Mode::QUAD: return quad::ease_inout(progress);
+    case Mode::QUART: return quart::ease_inout(progress);
+    case Mode::QUINT: return quint::ease_inout(progress);
+    case Mode::SINE: return sine::ease_inout(progress);
     default: return 0.0f;
   }
 }
