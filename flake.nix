@@ -18,6 +18,7 @@
             pname = "motwee";
             version = "0.0.0";
             src = nixpkgs.lib.cleanSource ./.;
+            cmakeFlags = [ "-DBUILD_EXTRA=ON" ];
             nativeBuildInputs = [
               pkgs.cmake
             ];
