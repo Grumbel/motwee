@@ -44,24 +44,27 @@ namespace bounce {
 
 inline float ease_out(float progress)
 {
-  if (progress < (1.0f / 2.75f))
+  float const d1 = 2.75f;
+  float const n1 = 7.5625f;
+
+  if (progress < (1.0f / d1))
   {
-    return (7.5625f * progress * progress);
+    return (n1 * progress * progress);
   }
-  else if (progress < (2/2.75f))
+  else if (progress < (2.0f / d1))
   {
-    progress -= 1.5f/2.75f;
-    return (7.5625f * progress * progress + .75f);
+    progress -= 1.5f / d1;
+    return (n1 * progress * progress + 0.75f);
   }
-  else if (progress < (2.5f / 2.75f))
+  else if (progress < (2.5f / d1))
   {
-    progress -= 2.25f/2.75f;
-    return (7.5625f * progress * progress + 0.9375f);
+    progress -= 2.25f / d1;
+    return (n1 * progress * progress + 0.9375f);
   }
   else
   {
-    progress -= 2.625f /2.75f;
-    return (7.5625f * progress * progress + .984375f);
+    progress -= 2.625f / d1;
+    return (n1 * progress * progress + .984375f);
   }
 }
 
