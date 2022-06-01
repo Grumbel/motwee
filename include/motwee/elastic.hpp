@@ -50,24 +50,23 @@ namespace elastic {
   d: duration
 */
 
-inline float ease_in(float t, float b, float c, float d, float a, float p)
+inline float ease_in(float progress, float b, float c, float a, float p)
 {
-  if (t==0)
+  if (progress == 0)
   {
     return b;
   }
   else
   {
-    t /= d;
-
-    if (t == 1)
+    if (progress == 1)
     {
       return b+c;
     }
     else
     {
-      if (p == 0.0f)
-        p = d * 0.3f;
+      if (p == 0.0f) {
+        p = 0.3f;
+      }
 
       float s;
 
@@ -80,30 +79,30 @@ inline float ease_in(float t, float b, float c, float d, float a, float p)
         s = p/(2*std::numbers::pi_v<float>) * std::asin(c/a);
       }
 
-      t-=1;
+      progress -= 1;
 
-      return -(a*std::pow(2,10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p)) + b;
+      return -(a*std::pow(2.0f , 10.0f * progress) * std::sin( (progress - s)*(2*std::numbers::pi_v<float>)/p)) + b;
     }
   }
 }
 
-inline float ease_out(float t, float b, float c, float d, float a, float p)
+inline float ease_out(float progress, float b, float c, float a, float p)
 {
-  if (t==0)
+  if (progress == 0)
   {
     return b;
   }
   else
   {
-    t /= d;
-    if (t==1)
+    if (progress == 1.0f)
     {
-      return b+c;
+      return b + c;
     }
     else
     {
-      if (p == 0.0f)
-        p=d*.3f;
+      if (p == 0.0f) {
+        p = 0.3f;
+      }
 
       float s;
       if (a == 0.0f || a < std::fabs(c))
@@ -116,47 +115,50 @@ inline float ease_out(float t, float b, float c, float d, float a, float p)
         s = p/(2*std::numbers::pi_v<float>) * std::asin(c/a);
       }
 
-      return (a*std::pow(2,-10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p ) + c + b);
+      return (a*std::pow(2.0f, -10 * progress) * std::sin( (progress - s)*(2*std::numbers::pi_v<float>)/p ) + c + b);
     }
   }
 }
 
-inline float ease_in_out(float t, float b, float c, float d, float a, float p)
+inline float ease_in_out(float progress, float b, float c, float a, float p)
 {
-  t/=d/2;
-  if (t==0)
+  progress /= 2.0f;
+
+  if (progress == 0)
   {
     return b;
   }
-  else if (t==2)
+  else if (progress == 2)
   {
-    return b+c;
+    return b + c;
   }
   else
   {
-    if (p == 0.0f)
-      p = d * (0.3f * 1.5f);
+    if (p == 0.0f) {
+      p = 0.3f * 1.5f;
+    }
 
     float s;
     if (a == 0.0f || a < std::fabs(c))
     {
-      a=c; s=p/4;
+      a = c;
+      s = p / 4.0f;
     }
     else
     {
-      s = p/(2*std::numbers::pi_v<float>) * std::asin(c/a);
+      s = p / (2.0f * std::numbers::pi_v<float>) * std::asin(c / a);
     }
 
-    t-=1;
+    progress -= 1;
 
-    if (t < 1)
+    if (progress < 1)
     {
-      return -.5f*(a*std::pow(2,10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p )) + b;
+      return -.5f*(a*std::pow(2.0f, 10.0f * progress) * std::sin( (progress - s) * (2.0f * std::numbers::pi_v<float>) / p)) + b;
     }
     else
     {
-      t-=1;
-      return a*std::pow(2,-10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p )*.5f + c + b;
+      progress -= 1.0f;
+      return a*std::pow(2.0f, -10.0f * progress) * std::sin( (progress - s)*(2.0f * std::numbers::pi_v<float>)/p ) * 0.5f + c + b;
     }
   }
 }

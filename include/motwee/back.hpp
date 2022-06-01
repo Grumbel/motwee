@@ -48,33 +48,32 @@ namespace back {
   d: duration
 */
 
-inline float ease_in(float t, float b, float c, float d, float s = 1.70158f)
+inline float ease_in(float progress, float b, float c, float s = 1.70158f)
 {
-  t = (t / d);
-  return c*t*t*((s + 1.0f) * t - s) + b;
+  return c * progress * progress * ((s + 1.0f) * progress - s) + b;
 }
 
-inline float ease_out(float t, float b, float c, float d, float s = 1.70158f)
+inline float ease_out(float progress, float b, float c, float s = 1.70158f)
 {
-  t = (t / d) - 1;
-  return c*(t*t*((s + 1.0f) * t + s) + 1) + b;
+  progress = progress - 1.0f;
+  return c * (progress * progress * ((s + 1.0f) * progress + s) + 1) + b;
 }
 
-inline float ease_in_out(float t, float b, float c, float d, float s = 1.70158f)
+inline float ease_in_out(float progress, float b, float c, float s = 1.70158f)
 {
-  t = (t / d) / 2;
+  progress = progress / 2;
 
   s *= 1.525f;
 
-  if (t < 1)
+  if (progress < 1)
   {
-    return c/2*(t*t*((s+1)*t - s)) + b;
+    return c/2*(progress * progress * ((s+1) * progress - s)) + b;
   }
   else
   {
     s *= 1.525f;
-    t -= 2;
-    return c/2*(t*t*((s+1)*t + s) + 2) + b;
+    progress -= 2;
+    return c/2*(progress * progress *((s+1) * progress + s) + 2) + b;
   }
 }
 

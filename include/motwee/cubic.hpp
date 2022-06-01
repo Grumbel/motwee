@@ -48,29 +48,28 @@ namespace cubic {
   d: duration
 */
 
-inline float ease_in(float t, float b, float c, float d)
+inline float ease_in(float progress, float b, float c)
 {
-  t /= d;
-  return c*t*t*t + b;
+  return c * progress * progress * progress + b;
 }
 
-inline float ease_out(float t, float b, float c, float d)
+inline float ease_out(float progress, float b, float c)
 {
-  t=t/d-1;
-  return c*(t*t*t + 1) + b;
+  progress -= 1.0f;
+  return c * (progress * progress * progress + 1) + b;
 }
 
-inline float ease_in_out(float t, float b, float c, float d)
+inline float ease_in_out(float progress, float b, float c)
 {
-  t /= d/2;
-  if (t < 1)
+  progress /= 2.0f;
+  if (progress < 1.0f)
   {
-    return c/2*t*t*t + b;
+    return c / 2.0f * progress * progress * progress + b;
   }
   else
   {
-    t-=2;
-    return c/2*(t*t*t + 2) + b;
+    progress -= 2;
+    return c / 2.0f * (progress * progress * progress + 2.0f) + b;
   }
 }
 

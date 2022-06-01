@@ -48,44 +48,43 @@ namespace bounce {
   d: duration
 */
 
-inline float ease_out(float t, float b, float c, float d)
+inline float ease_out(float progress, float b, float c)
 {
-  t  /=  d;
-  if (t < (1/2.75f))
+  if (progress < (1.0f / 2.75f))
   {
-    return c*(7.5625f*t*t) + b;
+    return c * (7.5625f * progress * progress) + b;
   }
-  else if (t < (2/2.75f))
+  else if (progress < (2/2.75f))
   {
-    t-=1.5f/2.75f;
-    return c*(7.5625f*t*t + .75f) + b;
+    progress -= 1.5f/2.75f;
+    return c*(7.5625f * progress * progress + .75f) + b;
   }
-  else if (t < (2.5f/2.75f))
+  else if (progress < (2.5f / 2.75f))
   {
-    t-=(2.25f/2.75f);
-    return c*(7.5625f*t*t + .9375f) + b;
+    progress -= 2.25f/2.75f;
+    return c * (7.5625f * progress * progress + 0.9375f) + b;
   }
   else
   {
-    t-=(2.625f/2.75f);
-    return c*(7.5625f*t*t + .984375f) + b;
+    progress -= 2.625f /2.75f;
+    return c*(7.5625f * progress * progress + .984375f) + b;
   }
 }
 
-inline float ease_in(float t, float b, float c, float d)
+inline float ease_in(float progress, float b, float c)
 {
-  return c - ease_out(d-t, 0, c, d) + b;
+  return c - ease_out(1.0f - progress, 0, c) + b;
 }
 
-inline float ease_in_out(float t, float b, float c, float d)
+inline float ease_in_out(float progress, float b, float c)
 {
-  if (t < d/2)
+  if (progress < 0.5f)
   {
-    return ease_in(t*2, 0, c, d) * .5f + b;
+    return ease_in(progress * 2.0f, 0, c) * 0.5f + b;
   }
   else
   {
-    return ease_out(t*2-d, 0, c, d) * .5f + c*.5f + b;
+    return ease_out(progress * 2.0f, 0, c) * 0.5f + c * 0.5f + b;
   }
 }
 

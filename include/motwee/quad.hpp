@@ -48,29 +48,27 @@ namespace quad {
   d: duration
 */
 
-inline float ease_in(float t, float b, float c, float d)
+inline float ease_in(float progress, float b, float c)
 {
-  t /= d;
-  return c*t*t + b;
+  return c * progress * progress + b;
 }
 
-inline float ease_out(float t, float b, float c, float d)
+inline float ease_out(float progress, float b, float c)
 {
-  t /= d;
-  return -c *t*(t-2) + b;
+  return -c * progress * (progress - 2.0f) + b;
 }
 
-inline float ease_in_out(float t, float b, float c, float d)
+inline float ease_in_out(float progress, float b, float c)
 {
-  t = t / d / 2;
-  if (t < 1)
+  progress /= 2.0f;
+  if (progress < 1.0f)
   {
-    return c/2*t*t + b;
+    return c / 2.0f * progress * progress + b;
   }
   else
   {
-    --t;
-    return -c/2 * (t*(t-2) - 1) + b;
+    progress -= 1.0f;
+    return -c / 2.0f * (progress * (progress - 2.0f) - 1.0f) + b;
   }
 }
 

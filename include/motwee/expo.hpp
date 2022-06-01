@@ -50,51 +50,51 @@ namespace expo {
   d: duration
 */
 
-inline float ease_in(float t, float b, float c, float d)
+inline float ease_in(float progress, float b, float c)
 {
-  if (t == 0)
+  if (progress == 0)
   {
     return b;
   }
   else
   {
-    return c * std::pow(2, 10 * (t/d - 1)) + b;
+    return c * std::pow(2, 10 * (progress - 1)) + b;
   }
 }
 
-inline float ease_out(float t, float b, float c, float d)
+inline float ease_out(float progress, float b, float c)
 {
-  if (t == d)
+  if (progress == 1.0f)
   {
     return b + c;
   }
   else
   {
-    return c * (-std::pow(2, -10 * t/d) + 1) + b;
+    return c * (-std::pow(2, -10 * progress) + 1) + b;
   }
 }
 
-inline float ease_in_out(float t, float b, float c, float d)
+inline float ease_in_out(float progress, float b, float c)
 {
-  if (t == 0)
+  if (progress == 0)
   {
     return b;
   }
-  else if (t == d)
+  else if (progress == 1.0f)
   {
-    return b+c;
+    return b + c;
   }
   else
   {
-    t /= d/2;
-    if (t < 1)
+    progress /= 2.0f;
+    if (progress < 1)
     {
-      return c/2 * std::pow(2, 10 * (t - 1)) + b;
+      return c/2 * std::pow(2.0f, 10.0f * (progress - 1.0f)) + b;
     }
     else
     {
-      --t;
-      return c/2 * (-std::pow(2, -10 * t) + 2) + b;
+      progress -= 1.0f;
+      return c/2 * (-std::pow(2.0f, -10.0f * progress) + 2) + b;
     }
   }
 }

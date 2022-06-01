@@ -48,24 +48,24 @@ namespace linear {
   d: duration
 */
 
-inline float easeNone (float t, float b, float c, float d)
+inline float easeNone (float progress, float b, float c)
 {
-  return c*t/d + b;
+  return c * progress + b;
 }
 
-inline float ease_in(float t, float b, float c, float d)
+inline float ease_in(float progress, float b, float c)
 {
-  return c*t/d + b;
+  return c * progress + b;
 }
 
-inline float ease_out(float t, float b, float c, float d)
+inline float ease_out(float progress, float b, float c)
 {
-  return c*t/d + b;
+  return c * progress + b;
 }
 
-inline float ease_in_out(float t, float b, float c, float d)
+inline float ease_in_out(float progress, float b, float c)
 {
-  return c*t/d + b;
+  return c * progress + b;
 }
 
 } // namespace linear
