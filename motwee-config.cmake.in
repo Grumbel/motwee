@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/motwee-config-version.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/motwee-targets.cmake")
+
+check_required_components(motwee)
+
+# EOF #

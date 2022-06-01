@@ -33,26 +33,39 @@
 cmake_minimum_required(VERSION 3.15)
 project(motwee VERSION 0.0.0)
 
-file(GLOB MOTWEE_HEADERS "include/motwee/h.?pp")
+set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/tinycmmc/modules/")
+find_package(tinycmmc CONFIG)
+message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
+list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
+
+include(GNUInstallDirs)
+
+file(GLOB MOTWEE_HEADERS "include/motwee/*.hpp")
 
 add_library(motwee INTERFACE)
 target_include_directories(motwee INTERFACE
-  include/
-  src/)
-set_target_properties(motwee PROPERTIES PUBLIC_HEADER "${MOTWEE_HEADERS}")
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+set_target_properties(motwee PROPERTIES
+  PUBLIC_HEADER "${MOTWEE_HEADERS}")
 
 if(BUILD_EXTRA)
-  add_executable(motwee src/main.cpp)
-  set_target_properties(motwee PROPERTIES
+  add_executable(motwee_exe src/main.cpp)
+  set_target_properties(motwee_exe PROPERTIES
+    OUTPUT_NAME "motwee"
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF)
+  target_link_libraries(motwee_exe motwee)
 
-  target_link_libraries(motwee motwee)
+  install(TARGETS motwee_exe
+    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 endif()
 
 install(TARGETS motwee
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
+
+include(ExportAndInstallLibrary)
 
 # EOF #
