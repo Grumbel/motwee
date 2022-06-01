@@ -38,6 +38,7 @@ find_package(tinycmmc CONFIG)
 message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
 list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
 
+include(MaximumWarnings)
 include(GNUInstallDirs)
 
 file(GLOB MOTWEE_HEADERS "include/motwee/*.hpp")
@@ -51,6 +52,7 @@ set_target_properties(motwee PROPERTIES
 
 if(BUILD_EXTRA)
   add_executable(motwee_exe src/main.cpp)
+  target_compile_options(motwee_exe PRIVATE ${WARNINGS_CXX_FLAGS})
   set_target_properties(motwee_exe PROPERTIES
     OUTPUT_NAME "motwee"
     CXX_STANDARD 20
