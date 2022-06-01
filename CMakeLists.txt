@@ -1,4 +1,4 @@
-# Easing functions for C++
+# motwee - Easing functions for C++
 # Copyright (C) Ingo Ruhnke <grumbel@gmail.com>
 #
 # Redistribution and use in source and binary forms, with or without
@@ -31,24 +31,27 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 cmake_minimum_required(VERSION 3.15)
-project(wsteasing VERSION 0.0.0)
+project(motwee VERSION 0.0.0)
 
-add_library(wsteasing INTERFACE)
-target_include_directories(wsteasing INTERFACE include/)
-target_include_directories(wsteasing INTERFACE  src/)
-set_target_properties(wsteasing PROPERTIES PUBLIC_HEADER "include/easing.hpp")
+file(GLOB MOTWEE_HEADERS "include/motwee/h.?pp")
+
+add_library(motwee INTERFACE)
+target_include_directories(motwee INTERFACE
+  include/
+  src/)
+set_target_properties(motwee PROPERTIES PUBLIC_HEADER "${MOTWEE_HEADERS}")
 
 if(BUILD_EXTRA)
-  add_executable(easing src/main.cpp)
-  set_target_properties(easing PROPERTIES
+  add_executable(motwee src/main.cpp)
+  set_target_properties(motwee PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF)
 
-  target_link_libraries(easing wsteasing)
+  target_link_libraries(motwee motwee)
 endif()
 
-install(TARGETS easing
+install(TARGETS motwee
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
 
