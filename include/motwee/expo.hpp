@@ -58,7 +58,7 @@ inline float ease_in(float t, float b, float c, float d)
   }
   else
   {
-    return c * powf(2, 10 * (t/d - 1)) + b;
+    return c * std::pow(2, 10 * (t/d - 1)) + b;
   }
 }
 
@@ -70,7 +70,7 @@ inline float ease_out(float t, float b, float c, float d)
   }
   else
   {
-    return c * (-powf(2, -10 * t/d) + 1) + b;
+    return c * (-std::pow(2, -10 * t/d) + 1) + b;
   }
 }
 
@@ -89,12 +89,12 @@ inline float ease_in_out(float t, float b, float c, float d)
     t /= d/2;
     if (t < 1)
     {
-      return c/2 * powf(2, 10 * (t - 1)) + b;
+      return c/2 * std::pow(2, 10 * (t - 1)) + b;
     }
     else
     {
       --t;
-      return c/2 * (-powf(2, -10 * t) + 2) + b;
+      return c/2 * (-std::pow(2, -10 * t) + 2) + b;
     }
   }
 }

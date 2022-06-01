@@ -38,6 +38,7 @@
 #define HEADER_MOTWEE_SINE_HPP
 
 #include <cmath>
+#include <numbers>
 
 namespace motwee {
 
@@ -52,7 +53,7 @@ namespace sine {
 
 inline float ease_in(float t, float b, float c, float d)
 {
-  return -c * std::cosf(t/d * (std::numbers::pi_v<float>/2)) + c + b;
+  return -c * std::cos(t/d * (std::numbers::pi_v<float>/2)) + c + b;
 }
 
 inline float ease_out(float t, float b, float c, float d)
@@ -62,7 +63,7 @@ inline float ease_out(float t, float b, float c, float d)
 
 inline float ease_in_out(float t, float b, float c, float d)
 {
-  return -c/2 * (std::cosf(std::numbers::pi_v<float>*t/d) - 1) + b;
+  return -c/2 * (std::cos(std::numbers::pi_v<float>*t/d) - 1) + b;
 }
 
 } // namespace sine

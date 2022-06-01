@@ -37,6 +37,8 @@
 #ifndef HEADER_MOTWEE_ELASTIC_HPP
 #define HEADER_MOTWEE_ELASTIC_HPP
 
+#include <numbers>
+
 namespace motwee {
 
 namespace elastic {
@@ -69,18 +71,18 @@ inline float ease_in(float t, float b, float c, float d, float a, float p)
 
       float s;
 
-      if (a == 0.0f || a < fabsf(c))
+      if (a == 0.0f || a < std::fabs(c))
       {
         a=c; s=p/4;
       }
       else
       {
-        s = p/(2*std::numbers::pi_v<float>) * astd::sin (c/a);
+        s = p/(2*std::numbers::pi_v<float>) * std::asin(c/a);
       }
 
       t-=1;
 
-      return -(a*powf(2,10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p)) + b;
+      return -(a*std::pow(2,10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p)) + b;
     }
   }
 }
@@ -104,17 +106,17 @@ inline float ease_out(float t, float b, float c, float d, float a, float p)
         p=d*.3f;
 
       float s;
-      if (a == 0.0f || a < fabsf(c))
+      if (a == 0.0f || a < std::fabs(c))
       {
         a=c;
         s=p/4;
       }
       else
       {
-        s = p/(2*std::numbers::pi_v<float>) * astd::sin (c/a);
+        s = p/(2*std::numbers::pi_v<float>) * std::asin(c/a);
       }
 
-      return (a*powf(2,-10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p ) + c + b);
+      return (a*std::pow(2,-10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p ) + c + b);
     }
   }
 }
@@ -136,25 +138,25 @@ inline float ease_in_out(float t, float b, float c, float d, float a, float p)
       p = d * (0.3f * 1.5f);
 
     float s;
-    if (a == 0.0f || a < fabsf(c))
+    if (a == 0.0f || a < std::fabs(c))
     {
       a=c; s=p/4;
     }
     else
     {
-      s = p/(2*std::numbers::pi_v<float>) * astd::sin(c/a);
+      s = p/(2*std::numbers::pi_v<float>) * std::asin(c/a);
     }
 
     t-=1;
 
     if (t < 1)
     {
-      return -.5f*(a*powf(2,10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p )) + b;
+      return -.5f*(a*std::pow(2,10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p )) + b;
     }
     else
     {
       t-=1;
-      return a*powf(2,-10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p )*.5f + c + b;
+      return a*std::pow(2,-10*t) * std::sin( (t*d-s)*(2*std::numbers::pi_v<float>)/p )*.5f + c + b;
     }
   }
 }

@@ -37,6 +37,8 @@
 #ifndef HEADER_MOTWEE_CIRC_HPP
 #define HEADER_MOTWEE_CIRC_HPP
 
+#include <cmath>
+
 namespace motwee {
 
 namespace circ {
@@ -51,13 +53,13 @@ namespace circ {
 inline float ease_in(float t, float b, float c, float d)
 {
   t  /=  d;
-  return -c * (sqrtf(1 - t*t) - 1) + b;
+  return -c * (std::sqrt(1 - t*t) - 1) + b;
 }
 
 inline float ease_out(float t, float b, float c, float d)
 {
   t = t / d - 1;
-  return c * sqrtf(1 - t*t) + b;
+  return c * std::sqrt(1 - t*t) + b;
 }
 
 inline float ease_in_out(float t, float b, float c, float d)
@@ -65,17 +67,19 @@ inline float ease_in_out(float t, float b, float c, float d)
   t /= d/2;
   if (t < 1)
   {
-    return -c/2 * (sqrtf(1 - t*t) - 1) + b;
+    return -c/2 * (std::sqrt(1 - t*t) - 1) + b;
   }
   else
   {
     t-=2;
-    return c/2 * (sqrtf(1 - t*t) + 1) + b;
+    return c/2 * (std::sqrt(1 - t*t) + 1) + b;
   }
 }
 
 } // namespace circ
 
 } // namespace motwee
+
+#endif
 
 /* EOF */
