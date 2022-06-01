@@ -36,17 +36,11 @@
 
 #ifndef HEADER_MOTWEE_BOUNCE_HPP
 #define HEADER_MOTWEE_BOUNCE_HPP
+#include "transform.hpp"
 
 namespace motwee {
 
 namespace bounce {
-
-/*
-  t: progress, 0-1
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
 
 inline float ease_out(float progress, float b, float c)
 {
@@ -73,19 +67,12 @@ inline float ease_out(float progress, float b, float c)
 
 inline float ease_in(float progress, float b, float c)
 {
-  return c - ease_out(1.0f - progress, 0, c) + b;
+  return transform_to_out(ease_out, progress, b, c);
 }
 
 inline float ease_in_out(float progress, float b, float c)
 {
-  if (progress < 0.5f)
-  {
-    return ease_in(progress * 2.0f, 0, c) * 0.5f + b;
-  }
-  else
-  {
-    return ease_out(progress * 2.0f, 0, c) * 0.5f + c * 0.5f + b;
-  }
+  return transform_to_in_out(ease_in, progress, b, c);
 }
 
 } // namespace bounce

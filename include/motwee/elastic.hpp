@@ -39,16 +39,11 @@
 
 #include <numbers>
 
+#include "transform.hpp"
+
 namespace motwee {
 
 namespace elastic {
-
-/*
-  t: progress, 0-1
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
 
 inline float ease_in(float progress, float b, float c, float a, float p)
 {
@@ -56,86 +51,14 @@ inline float ease_in(float progress, float b, float c, float a, float p)
   {
     return b;
   }
-  else
-  {
-    if (progress == 1)
-    {
-      return b+c;
-    }
-    else
-    {
-      if (p == 0.0f) {
-        p = 0.3f;
-      }
-
-      float s;
-
-      if (a == 0.0f || a < std::fabs(c))
-      {
-        a=c; s=p/4;
-      }
-      else
-      {
-        s = p/(2*std::numbers::pi_v<float>) * std::asin(c/a);
-      }
-
-      progress -= 1;
-
-      return -(a*std::pow(2.0f , 10.0f * progress) * std::sin( (progress - s)*(2*std::numbers::pi_v<float>)/p)) + b;
-    }
-  }
-}
-
-inline float ease_out(float progress, float b, float c, float a, float p)
-{
-  if (progress == 0)
-  {
-    return b;
-  }
-  else
-  {
-    if (progress == 1.0f)
-    {
-      return b + c;
-    }
-    else
-    {
-      if (p == 0.0f) {
-        p = 0.3f;
-      }
-
-      float s;
-      if (a == 0.0f || a < std::fabs(c))
-      {
-        a=c;
-        s=p/4;
-      }
-      else
-      {
-        s = p/(2*std::numbers::pi_v<float>) * std::asin(c/a);
-      }
-
-      return (a*std::pow(2.0f, -10 * progress) * std::sin( (progress - s)*(2*std::numbers::pi_v<float>)/p ) + c + b);
-    }
-  }
-}
-
-inline float ease_in_out(float progress, float b, float c, float a, float p)
-{
-  progress /= 2.0f;
-
-  if (progress == 0)
-  {
-    return b;
-  }
-  else if (progress == 2)
+  else if (progress == 1)
   {
     return b + c;
   }
   else
   {
     if (p == 0.0f) {
-      p = 0.3f * 1.5f;
+      p = 0.3f;
     }
 
     float s;
@@ -146,21 +69,23 @@ inline float ease_in_out(float progress, float b, float c, float a, float p)
     }
     else
     {
-      s = p / (2.0f * std::numbers::pi_v<float>) * std::asin(c / a);
+      s = p / (2*std::numbers::pi_v<float>) * std::asin(c/a);
     }
 
-    progress -= 1;
+    progress -= 1.0f;
 
-    if (progress < 1)
-    {
-      return -.5f*(a*std::pow(2.0f, 10.0f * progress) * std::sin( (progress - s) * (2.0f * std::numbers::pi_v<float>) / p)) + b;
-    }
-    else
-    {
-      progress -= 1.0f;
-      return a*std::pow(2.0f, -10.0f * progress) * std::sin( (progress - s)*(2.0f * std::numbers::pi_v<float>)/p ) * 0.5f + c + b;
-    }
+    return -(a * std::pow(2.0f , 10.0f * progress) * std::sin( (progress - s)*(2*std::numbers::pi_v<float>)/p)) + b;
   }
+}
+
+inline float ease_out(float progress, float b, float c, float a, float p)
+{
+  return transform_to_out(ease_in, progress, b, c, a, p);
+}
+
+inline float ease_in_out(float progress, float b, float c, float a, float p)
+{
+  return transform_to_in_out(ease_in, progress, b, c, a, p);
 }
 
 } // namespace elastic

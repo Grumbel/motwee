@@ -41,13 +41,6 @@ namespace motwee {
 
 namespace quint {
 
-/*
-  t: progress, 0-1
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
-
 inline float ease_in(float progress, float b, float c)
 {
   return c * progress * progress * progress * progress * progress + b;
@@ -55,22 +48,12 @@ inline float ease_in(float progress, float b, float c)
 
 inline float ease_out(float progress, float b, float c)
 {
-  progress -= 1.0f;
-  return c * (progress * progress * progress * progress * progress + 1) + b;
+  return transform_to_out(ease_in, progress, b, c);
 }
 
 inline float ease_in_out(float progress, float b, float c)
 {
-  progress /= 2.0f;
-  if (progress < 1.0f)
-  {
-    return c/2.0f * progress * progress * progress * progress * progress + b;
-  }
-  else
-  {
-    progress -= 2.0f;
-    return c/2.0f * (progress * progress * progress * progress * progress + 2) + b;
-  }
+  return transform_to_in_out(ease_in, progress, b, c);
 }
 
 } // namespace quint

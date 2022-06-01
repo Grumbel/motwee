@@ -44,13 +44,6 @@ namespace motwee {
 
 namespace sine {
 
-/*
-  t: progress, 0-1
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
-
 inline float ease_in(float progress, float b, float c)
 {
   return -c * std::cos(progress * (std::numbers::pi_v<float>/2)) + c + b;
@@ -58,12 +51,12 @@ inline float ease_in(float progress, float b, float c)
 
 inline float ease_out(float progress, float b, float c)
 {
-  return c * std::sin(progress * (std::numbers::pi_v<float>/2)) + b;
+  return transform_to_out(ease_in, progress, b, c);
 }
 
 inline float ease_in_out(float progress, float b, float c)
 {
-  return -c/2 * (std::cos(std::numbers::pi_v<float> * progress) - 1) + b;
+  return transform_to_in_out(ease_in, progress, b, c);
 }
 
 } // namespace sine

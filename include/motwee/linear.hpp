@@ -41,18 +41,6 @@ namespace motwee {
 
 namespace linear {
 
-/*
-  t: progress, 0-1
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
-
-inline float easeNone (float progress, float b, float c)
-{
-  return c * progress + b;
-}
-
 inline float ease_in(float progress, float b, float c)
 {
   return c * progress + b;
@@ -60,12 +48,12 @@ inline float ease_in(float progress, float b, float c)
 
 inline float ease_out(float progress, float b, float c)
 {
-  return c * progress + b;
+  return ease_in(progress, b, c);
 }
 
 inline float ease_in_out(float progress, float b, float c)
 {
-  return c * progress + b;
+  return ease_in(progress, b, c);
 }
 
 } // namespace linear

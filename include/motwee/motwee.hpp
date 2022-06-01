@@ -52,12 +52,6 @@
 
 namespace motwee {
 
-/*
-  t: progress, 0-1
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
 inline float ease_in(Mode type, float progress, float b, float c, float x = 0.0f, float y = 0.0f)
 {
   switch (type)

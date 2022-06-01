@@ -43,13 +43,6 @@ namespace motwee {
 
 namespace expo {
 
-/*
-  t: progress, 0-1
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
-
 inline float ease_in(float progress, float b, float c)
 {
   if (progress == 0)
@@ -64,39 +57,12 @@ inline float ease_in(float progress, float b, float c)
 
 inline float ease_out(float progress, float b, float c)
 {
-  if (progress == 1.0f)
-  {
-    return b + c;
-  }
-  else
-  {
-    return c * (-std::pow(2, -10 * progress) + 1) + b;
-  }
+  return transform_to_out(ease_in, progress, b, c);
 }
 
 inline float ease_in_out(float progress, float b, float c)
 {
-  if (progress == 0)
-  {
-    return b;
-  }
-  else if (progress == 1.0f)
-  {
-    return b + c;
-  }
-  else
-  {
-    progress /= 2.0f;
-    if (progress < 1)
-    {
-      return c/2 * std::pow(2.0f, 10.0f * (progress - 1.0f)) + b;
-    }
-    else
-    {
-      progress -= 1.0f;
-      return c/2 * (-std::pow(2.0f, -10.0f * progress) + 2) + b;
-    }
-  }
+  return transform_to_in_out(ease_in, progress, b, c);
 }
 
 } // namespace expo

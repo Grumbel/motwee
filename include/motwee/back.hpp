@@ -37,16 +37,11 @@
 #ifndef HEADER_MOTWEE_BACK_HPP
 #define HEADER_MOTWEE_BACK_HPP
 
+#include "transform.hpp"
+
 namespace motwee {
 
 namespace back {
-
-/*
-  t: progress, 0-1
-  b: start position
-  c: change in position (finish - b)
-  d: duration
-*/
 
 inline float ease_in(float progress, float b, float c, float s = 1.70158f)
 {
@@ -55,26 +50,12 @@ inline float ease_in(float progress, float b, float c, float s = 1.70158f)
 
 inline float ease_out(float progress, float b, float c, float s = 1.70158f)
 {
-  progress = progress - 1.0f;
-  return c * (progress * progress * ((s + 1.0f) * progress + s) + 1) + b;
+  return transform_to_out(ease_in, progress, b, c, s);
 }
 
 inline float ease_in_out(float progress, float b, float c, float s = 1.70158f)
 {
-  progress = progress / 2;
-
-  s *= 1.525f;
-
-  if (progress < 1)
-  {
-    return c/2*(progress * progress * ((s+1) * progress - s)) + b;
-  }
-  else
-  {
-    s *= 1.525f;
-    progress -= 2;
-    return c/2*(progress * progress *((s+1) * progress + s) + 2) + b;
-  }
+  return transform_to_in_out(ease_in, progress, b, c, s);
 }
 
 } // namespace back

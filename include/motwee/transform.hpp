@@ -1,6 +1,5 @@
 /*
-**  Copyright © 2001 Robert Penner
-**              2009-2022 Ingo Ruhnke <grumbel@gmail.com> (C++ port)
+**  Copyright © 2009-2022 Ingo Ruhnke <grumbel@gmail.com> (C++ port)
 **  All rights reserved.
 **
 **  Redistribution and use in source and binary forms, with or without
@@ -34,32 +33,26 @@
 **  SUCH DAMAGE.
 */
 
-#ifndef HEADER_MOTWEE_QUAD_HPP
-#define HEADER_MOTWEE_QUAD_HPP
+#ifndef HEADER_MOTWEE_TRANSFORM_HPP
+#define HEADER_MOTWEE_TRANSFORM_HPP
 
 namespace motwee {
 
-namespace quad {
-
-inline float ease_in(float progress, float b, float c)
-{
-  return c * progress * progress + b;
+template<typename F, typename... Args>
+inline float transform_to_out(F f, float progress, Args... args) {
+  return 1.0f - f(1.0f - progress, args...);
 }
 
-inline float ease_out(float progress, float b, float c)
-{
-  return transform_to_out(ease_in, progress, b, c);
+template<typename F, typename... Args>
+inline float transform_to_in_out(F f, float progress, Args... args) {
+  if (progress < 0.5f) {
+    return f(progress * 2.0f, args...) / 2.0f;
+  } else {
+    return 1.0f - f(2.0f - 2.0f * progress, args...) / 2.0f;
+  }
 }
-
-inline float ease_in_out(float progress, float b, float c)
-{
-  return transform_to_in_out(ease_in, progress, b, c);
-}
-
-} // namespace quad
 
 } // namespace motwee
-
 
 #endif
 
