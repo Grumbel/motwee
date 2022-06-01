@@ -31,7 +31,7 @@ Direction Direction_from_string(std::string_view text)
 int main(int argc, char** argv)
 {
   if (argc < 2) {
-    std::cerr << "Usage: " << argv[0] << " MODE[-in,-out,-inout] [b] [c] [d]" << std::endl;
+    std::cerr << "Usage: " << argv[0] << " MODE[-in,-out,-inout]" << std::endl;
     std::cerr << "\n";
     std::cerr << "Modes:";
     for (auto const& text : motwee::Mode_names) {
@@ -54,36 +54,21 @@ int main(int argc, char** argv)
     }
   }
 
-  float b = 0.0f;
-  if (argc > 2) {
-    b = std::stof(argv[2]);
-  }
-
-  float c = 1.0f;
-  if (argc > 3) {
-    c = std::stof(argv[3]);
-  }
-
-  float d = 1.0f;
-  if (argc > 4) {
-    c = std::stof(argv[4]);
-  }
-
   //for(float progress = 0.0f; progress < 1.0f; progress += 0.01f) {
   for(float progress = 0.0f; progress < 1.0f; progress += 0.01f) {
     float value;
     switch (direction)
     {
       case Direction::IN:
-        value = motwee::ease_in(mode, progress, b, c, d);
+        value = motwee::ease_in(mode, progress);
         break;
 
       case Direction::OUT:
-        value = motwee::ease_out(mode, progress, b, c, d);
+        value = motwee::ease_out(mode, progress);
         break;
 
       case Direction::INOUT:
-        value = motwee::ease_in_out(mode, progress, b, c, d);
+        value = motwee::ease_in_out(mode, progress);
         break;
     }
 

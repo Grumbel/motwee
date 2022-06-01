@@ -41,19 +41,19 @@ namespace motwee {
 
 namespace cubic {
 
-inline float ease_in(float progress, float b, float c)
+inline float ease_in(float progress)
 {
-  return c * progress * progress * progress + b;
+  return progress * progress * progress;
 }
 
-inline float ease_out(float progress, float b, float c)
+inline float ease_out(float progress)
 {
-  return transform_to_out(ease_in, progress, b, c);
+  return transform_to_out(ease_in, progress);
 }
 
-inline float ease_in_out(float progress, float b, float c)
+inline float ease_in_out(float progress)
 {
-  return transform_to_in_out(ease_in, progress, b, c);
+  return transform_to_in_out(ease_in, progress);
 }
 
 } // namespace cubic

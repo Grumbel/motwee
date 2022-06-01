@@ -43,19 +43,19 @@ namespace motwee {
 
 namespace circ {
 
-inline float ease_in(float progress, float b, float c)
+inline float ease_in(float progress)
 {
-  return -c * (std::sqrt(1 - progress * progress) - 1) + b;
+  return -(std::sqrt(1 - progress * progress) - 1);
 }
 
-inline float ease_out(float progress, float b, float c)
+inline float ease_out(float progress)
 {
-  return transform_to_out(ease_in, progress, b, c);
+  return transform_to_out(ease_in, progress);
 }
 
-inline float ease_in_out(float progress, float b, float c)
+inline float ease_in_out(float progress)
 {
-  return transform_to_in_out(ease_in, progress, b, c);
+  return transform_to_in_out(ease_in, progress);
 }
 
 } // namespace circ

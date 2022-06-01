@@ -42,37 +42,37 @@ namespace motwee {
 
 namespace bounce {
 
-inline float ease_out(float progress, float b, float c)
+inline float ease_out(float progress)
 {
   if (progress < (1.0f / 2.75f))
   {
-    return c * (7.5625f * progress * progress) + b;
+    return (7.5625f * progress * progress);
   }
   else if (progress < (2/2.75f))
   {
     progress -= 1.5f/2.75f;
-    return c*(7.5625f * progress * progress + .75f) + b;
+    return (7.5625f * progress * progress + .75f);
   }
   else if (progress < (2.5f / 2.75f))
   {
     progress -= 2.25f/2.75f;
-    return c * (7.5625f * progress * progress + 0.9375f) + b;
+    return (7.5625f * progress * progress + 0.9375f);
   }
   else
   {
     progress -= 2.625f /2.75f;
-    return c*(7.5625f * progress * progress + .984375f) + b;
+    return (7.5625f * progress * progress + .984375f);
   }
 }
 
-inline float ease_in(float progress, float b, float c)
+inline float ease_in(float progress)
 {
-  return transform_to_out(ease_out, progress, b, c);
+  return transform_to_out(ease_out, progress);
 }
 
-inline float ease_in_out(float progress, float b, float c)
+inline float ease_in_out(float progress)
 {
-  return transform_to_in_out(ease_in, progress, b, c);
+  return transform_to_in_out(ease_in, progress);
 }
 
 } // namespace bounce

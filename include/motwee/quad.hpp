@@ -37,23 +37,25 @@
 #ifndef HEADER_MOTWEE_QUAD_HPP
 #define HEADER_MOTWEE_QUAD_HPP
 
+#include "transform.hpp"
+
 namespace motwee {
 
 namespace quad {
 
-inline float ease_in(float progress, float b, float c)
+inline float ease_in(float progress)
 {
-  return c * progress * progress + b;
+  return progress * progress;
 }
 
-inline float ease_out(float progress, float b, float c)
+inline float ease_out(float progress)
 {
-  return transform_to_out(ease_in, progress, b, c);
+  return transform_to_out(ease_in, progress);
 }
 
-inline float ease_in_out(float progress, float b, float c)
+inline float ease_in_out(float progress)
 {
-  return transform_to_in_out(ease_in, progress, b, c);
+  return transform_to_in_out(ease_in, progress);
 }
 
 } // namespace quad

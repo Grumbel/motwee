@@ -52,6 +52,12 @@ inline float transform_to_in_out(F f, float progress, Args... args) {
   }
 }
 
+/* Map value in range [0,1] to range [start, end] */
+inline float map_to(float value, float start, float end)
+{
+  return value * (end - start) + start;
+}
+
 } // namespace motwee
 
 #endif

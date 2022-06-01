@@ -43,26 +43,26 @@ namespace motwee {
 
 namespace expo {
 
-inline float ease_in(float progress, float b, float c)
+inline float ease_in(float progress)
 {
   if (progress == 0)
   {
-    return b;
+    return 0.0f;
   }
   else
   {
-    return c * std::pow(2, 10 * (progress - 1)) + b;
+    return std::pow(2.0f, 10.0f * (progress - 1.0f));
   }
 }
 
-inline float ease_out(float progress, float b, float c)
+inline float ease_out(float progress)
 {
-  return transform_to_out(ease_in, progress, b, c);
+  return transform_to_out(ease_in, progress);
 }
 
-inline float ease_in_out(float progress, float b, float c)
+inline float ease_in_out(float progress)
 {
-  return transform_to_in_out(ease_in, progress, b, c);
+  return transform_to_in_out(ease_in, progress);
 }
 
 } // namespace expo
