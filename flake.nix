@@ -1,6 +1,6 @@
  {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils";
 
     tinycmmc.url = "github:grumbel/tinycmmc";
@@ -13,21 +13,28 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in rec {
-        packages = flake-utils.lib.flattenTree {
+        packages = rec {
+          default = motwee;
+
           motwee = pkgs.stdenv.mkDerivation {
             pname = "motwee";
             version = "0.0.0";
-            src = nixpkgs.lib.cleanSource ./.;
-            cmakeFlags = [ "-DBUILD_EXTRA=ON" ];
-            nativeBuildInputs = [
-              pkgs.cmake
+
+            src = ./.;
+
+            cmakeFlags = [
+              "-DBUILD_EXTRA=ON"
             ];
+
+            nativeBuildInputs = with pkgs; [
+              cmake
+            ];
+
             buildInputs = [
-              tinycmmc.defaultPackage.${system}
+              tinycmmc.packages.${system}.default
             ];
-           };
+          };
         };
-        defaultPackage = packages.motwee;
       }
     );
 }
